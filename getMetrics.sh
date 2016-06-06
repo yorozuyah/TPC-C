@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NAMESPACE="AWS/RDS"
-METRICS="CPUUtilization ReadLatency WriteLatency ReadIOPS WriteIOPS ReadThroughput WriteThroughput"
+METRICS="CPUUtilization ReadLatency WriteLatency ReadIOPS WriteIOPS ReadThroughput WriteThroughput ReplicaLag"
 DIMMENSIONS="DBInstanceIdentifier=mantanis-mysql"
 STATISTICS="Average"
 PERIOD="60"
