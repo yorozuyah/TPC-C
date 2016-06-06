@@ -8,7 +8,7 @@ exec 2> >(tee -a stderr.log >&2)
 ### Parameter
 DBMS="mysql"
 INST_DIR="/opt/jdbcrunner-1.2/"
-SCRIPTS="${INST_DIR}/scripts/tpcc.js"
+SCRIPT="${INST_DIR}/scripts/tpcc.js"
 WH=1
 DB="tpcc"
 USER="tpcc"
@@ -23,17 +23,15 @@ EXEC=300
 export CLASSPATH="${CLASSPATH}:${INST_DIR}/jdbcrunner-1.2.jar:${INST_DIR}/lib/mysql-connector-java-5.1.18-bin.jar"
 
 ### modify scripts
-sed "s/jdbc:${DBMS}:\/\/localhost:/jdbc:mysql:\/\/${ENDPOINT}:/" <  ${SCRIPTS} > ${SCRIPTS}_${DBMS}
+sed "s/jdbc:${DBMS}:\/\/localhost:/jdbc:mysql:\/\/${ENDPOINT}:/" <  ${SCRIPT} > ${SCRIPT}_${DBMS}
 
 ### START TEST
-TIME=`date +%Y%m%d_%H%m`
-LOGDIR=${INST_DIR}/logs/${TIME}
-LOGNAME=${LOGDIR}/tpcc_exec
-TIME=`date +%Y%m%d_%H%m`
+START_TIME=`date +%s`
+LOGDIR=${INST_DIR}/logs/${START_TIME}
 
 mkdir -p ${LOGDIR}
 
-echo `date +%Y%m%d_%H%m` test start 
+echo `date +%Y%m%d_%H%m @${START_TIME}` test start 
 
 for connection in ${CON}
 do
@@ -46,8 +44,12 @@ echo `date +%Y%m%d_%H%m` connection: ${connection} end
 
 done
 
-echo `date +%Y%m%d_%H%m` all test done 
+END_TIME=`date +%s`
+
+echo `date +%Y%m%d_%H%m @${END_TIME}` test start 
 
 mv stdout.log stderr.log ${LOGDIR}
+
+# ./getMetrics.sh `date @${START_TIME} --iso-8601=seconds` `date @${END_TIME} --iso-8601=seconds`
 
 exit 0
