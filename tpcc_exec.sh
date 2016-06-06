@@ -27,7 +27,7 @@ sed "s/jdbc:${DBMS}:\/\/localhost:/jdbc:mysql:\/\/${ENDPOINT}:/" <  ${SCRIPT} > 
 
 ### START TEST
 START_TIME=`date +%s`
-LOGDIR=${INST_DIR}/logs/${START_TIME}
+LOGDIR=${INST_DIR}/logs/`date +%Y%m%d_%H%m @${START_TIME}`
 
 mkdir -p ${LOGDIR}
 
@@ -48,8 +48,8 @@ END_TIME=`date +%s`
 
 echo `date +%Y%m%d_%H%m @${END_TIME}` test start 
 
-mv stdout.log stderr.log ${LOGDIR}
+# ./getMetrics.sh ${START_TIME} ${END_TIME}
 
-# ./getMetrics.sh `date @${START_TIME} --iso-8601=seconds` `date @${END_TIME} --iso-8601=seconds`
+mv stdout.log stderr.log *csv ${LOGDIR}
 
 exit 0
