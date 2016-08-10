@@ -38,7 +38,7 @@ do
 
 echo `date +%Y%m%d_%H%m` connection: ${connection} start
 
-java JR ${INST_DIR}/scripts/tpcc.js -warmupTime ${RAMP} -measurementTime ${EXEC} -nAgents ${connection} -logDir ${LOGDIR}
+java JR ${SCRIPT}_${DBMS} -warmupTime ${RAMP} -measurementTime ${EXEC} -nAgents ${connection} -logDir ${LOGDIR}
 
 echo `date +%Y%m%d_%H%m` connection: ${connection} end 
 
